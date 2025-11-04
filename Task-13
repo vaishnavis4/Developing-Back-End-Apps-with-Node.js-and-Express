@@ -1,21 +1,31 @@
-// Task 13: Search by Title (Async/Await version)
+// ✅ Task 13: Search by Title (Async/Await version)
 
+const axios = require("axios"); // Make sure axios is imported
+
+// Function to search books by title
 async function searchByTitle(title) {
   try {
-    const response = await axios.get(`http://localhost:3000/api/books/title/${title}`);
-    console.log("Books by Title:", response.data);
+    const url = `http://localhost:3000/api/books/title/${encodeURIComponent(title)}`;
+    const response = await axios.get(url);
+
+    console.log("📚 Books by Title:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error("❌ Error fetching books:", error.message);
     throw error;
   }
 }
 
-// Usage
+// Usage example
 (async () => {
-  await searchByTitle("sample");
-  console.log("Done");
+  try {
+    await searchByTitle("sample");
+    console.log("✅ Search completed successfully.");
+  } catch (err) {
+    console.error("⚠️ Operation failed:", err.message);
+  }
 })();
+
 
 
 
